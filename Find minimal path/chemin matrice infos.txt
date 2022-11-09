@@ -1,0 +1,30 @@
+On commence en haut à gauche on finit en bas à droite.
+Dans la version normale (PE 81) : 
+5*5 --> 2427
+80*80 --> 427337
+Dans cette version, pour faire comprendre aux individus qu'ils doivent atteindre
+cette case, le score n'est plus de 331 mais 331-100 000 = -99669
+Ils ne peuvent se déplacer que vers le bas et vers la droite, cela permet de définir
+un nombre de gènes de 2*taille - 2 (car il commence sur la case en haut à gauche)
+
+Les gènes sont des 0 ou des 1, ce qui permet de facilement les croiser/muter et
+donne directement la direction prise donnée par la liste mouvement : droite ou bas.
+
+Pour le score : la fonction calcule le score selon les cases par lesquelles passe
+l'individu, cependant s'il sort de la grille il prend une grosse pénalité, minorée par
+par le nombre de mouvement qu'il a fait pour en arriver là (pour défavoriser les
+individus qui sortent de la grille très tôt) puis on passe au suivant car il ne peut de toute
+façon pas revenir dans la grille.
+individu test : "10010110"
+Dans les matrices numpy : x pour les lignes et y pour les colonnes.
+
+Etapes supposées:
+1) les individus apprennent à ne plus sortir de la matrice
+2) les individus trouvent qu'ils doivent atteindre le coin en bas à droite
+3) le meilleur chemin est trouvé
+
+Un même individu ne peut pas rester premier au classement plus de itera_chef_max iterations.
+Il est remplacé par un individu avec des gènes aléatoires comme au début.
+On supprime tous ceux qui sont égaux au chef --> problème : lorsqu'un gène s'est 
+propagé à toute la population (=tous les individus sont égaux) alors ils sont tous
+supprimés et on repart à 0.
